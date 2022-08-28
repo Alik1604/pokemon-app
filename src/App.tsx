@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "./app/hooks";
 import DatailedCard from "./components/DatailedCard";
+import ModalPokemonCard from "./components/ModalPokemonCard";
 import Pokemons from "./components/Pokemons";
 import { getPokemons } from "./features/pokemonSlice";
 import search from "./img/search.png";
@@ -17,7 +18,7 @@ function App() {
   }
 
   useEffect(() => {
-    loadPokemons(894);
+    loadPokemons(12);
   }, []);
 
   return loading ? (
@@ -29,7 +30,7 @@ function App() {
           {"Pokedex"}
         </div>
       </header>
-      <div className="w-[100%] min-h-[40px] mt-5 flex flex-row justify-center">
+      {/* <div className="w-[100%] min-h-[40px] mt-5 flex flex-row justify-center">
         <div className="bg-[#fff] min-h-[40px] min-w-[40px] w-[2%] rounded-[10px_0px_0px_10px] focus:outline-none flex justify-center items-center">
           <img className="h-[20px] w-[20px]" src={search} alt="" />
         </div>
@@ -38,7 +39,7 @@ function App() {
           placeholder="Name or number"
           className="rounded-[0px_10px_10px_0px] min-h-[40px] focus:outline-none w-[90%] md:w-[25%]"
         ></input>
-      </div>
+      </div> */}
       <Pokemons onClick={loadPokemons} arrPokemon={pokemons} />
     </div>
   );

@@ -5,6 +5,7 @@ import { ArrayPokemonType } from "../types";
 import DatailedCard from "./DatailedCard";
 import PokemonCard from "./PokemonCard";
 import { motion } from "framer-motion";
+import ModalPokemonCard from "./ModalPokemonCard";
 
 interface Props {
   arrPokemon: ArrayPokemonType[];
@@ -42,6 +43,25 @@ const Pokemons: React.FC<Props> = ({ arrPokemon, onClick }) => {
     loadPokemon(arrPokemon);
   }, []);
 
+  const [isFormShown, setIsFormShown] = useState(false);
+
+  const makeFormVisible = () => {
+    SetPokemon(pokemon);
+    setIsFormShown(true);
+  };
+
+  const makeFormInvisible = () => {
+    setIsFormShown(false);
+  };
+
+  useEffect(() => {
+    if (isFormShown) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [isFormShown]);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -51,7 +71,11 @@ const Pokemons: React.FC<Props> = ({ arrPokemon, onClick }) => {
       <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[100%] md:w-[70%] max-h-[750px] overflow-y-auto scrollbar-hide">
         {pokemons.map((p, index) => (
           <motion.div key={index} whileHover={{ scale: 0.9 }}>
-            <PokemonCard onClick={setCurrentPokemon} pokemon={p} />
+            <PokemonCard
+              showWindow={makeFormVisible}
+              onClick={setCurrentPokemon}
+              pokemon={p}
+            />
           </motion.div>
         ))}
         <div
@@ -67,13 +91,24 @@ const Pokemons: React.FC<Props> = ({ arrPokemon, onClick }) => {
       </div>
 
       <motion.div
-        className="flex  w-[30%]  min-h-[620px]"
+        className="xl:flex hidden  w-[30%]  min-h-[620px] "
         initial="hidden"
         animate={{ x }}
         transition={{ delay: 0.5 }}
       >
         <DatailedCard pokemon={pokemon} />
       </motion.div>
+      {isFormShown && (
+        <div
+          className="absolute top-0 left-0 w-full h-[100vh] xl:hidden flex items-center justify-center z-10 bg-black/60"
+          onClick={makeFormInvisible}
+        >
+          <ModalPokemonCard
+            pokemon={pokemon}
+            makeFormInvisible={makeFormInvisible}
+          />
+        </div>
+      )}
     </div>
   );
 };

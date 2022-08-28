@@ -4,13 +4,17 @@ import TypeOfPokemonBlok from "./TypeOfPokemonBlok";
 type Props = {
   pokemon: any;
   onClick: (pokemon: any) => void;
+  showWindow: () => void;
 };
 
-const PokemonCard: React.FC<Props> = ({ pokemon, onClick }) => {
+const PokemonCard: React.FC<Props> = ({ pokemon, onClick, showWindow }) => {
   return (
     <div
       className="flex flex-col w-full relative items-center min-h-[320px] duration-300"
-      onClick={(e) => onClick(pokemon)}
+      onClick={(e) => {
+        onClick(pokemon);
+        showWindow();
+      }}
     >
       <img
         className="h-[200px] w-[200px] absolute top-[0px]"
@@ -19,7 +23,7 @@ const PokemonCard: React.FC<Props> = ({ pokemon, onClick }) => {
       />
       <div className="mt-[120px] w-[300px] md:w-[95%]  bg-white h-[200px] rounded-[10px] flex flex-col items-center ">
         <div className="text-[12px] text-[#C7C7C7] mt-[75px]">
-          №{pokemon.id}
+          № {pokemon.id}
         </div>
         <div
           className={` ${
