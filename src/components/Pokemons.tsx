@@ -67,7 +67,7 @@ const Pokemons: React.FC<Props> = ({ arrPokemon, onClick }) => {
   }
 
   return (
-    <div className="w-[100% flex flex-col justify-center items-center md:flex-row mt-5 max-h-[1040px] overflow-hidden gap-5">
+    <div className="w-[100%] flex flex-col justify-center items-center md:flex-row mt-5 max-h-[1040px] overflow-hidden gap-5">
       <div className="grid sm:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 w-[100%] md:w-[70%] max-h-[750px] overflow-y-auto scrollbar-hide">
         {pokemons.map((p, index) => (
           <motion.div key={index} whileHover={{ scale: 0.9 }}>
